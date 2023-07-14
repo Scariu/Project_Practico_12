@@ -14,8 +14,6 @@ class MainActivity : AppCompatActivity() {
 }
 
 
-
-
 fun main() {
 
     var nombre: String
@@ -61,15 +59,15 @@ fun main() {
         }
 
         //SISTEMA SALUD
-        println("Seleccione su sistema de salud (indique el número):")
+        println("Seleccione su sistema de salud :")
         println("1.Fonasa")
         println("2.Isapre")
         println("3.Particular")
-        sistemaSalud = readln()
-            while (!validarSistema(sistemaSalud)){
-                println("Correo inválido, ingrese un correo válido.")
-                sistemaSalud = readln()
-            }
+        sistemaSalud = readln().lowercase().uppercase()
+        while (!validarSistema(sistemaSalud)) {
+            println("Sistema de salud inválido, ingrese un sistema de salud válido.")
+            sistemaSalud = readln()
+        }
 
 
         var usuario = Usuario(nombre, apellido, edad, correo, sistemaSalud)
@@ -82,40 +80,44 @@ fun main() {
 }
 
 
-
 //DataClass
-data class Usuario(
-    val nombre: String,
-    val apellido: String,
-    val edad: Int,
-    val correo: String,
-    val sistemaSalud: String
-)
+    data class Usuario(
+        val nombre: String,
+        val apellido: String,
+        val edad: Int,
+        val correo: String,
+        val sistemaSalud: String
+    )
 
     fun validarSistema(sistemaSalud: String): Boolean {
         when (sistemaSalud) {
-            "1" -> println("Seleccionó Fonasa")
-            "2" -> println("Seleccionó Isapre")
-            "3"-> println("Seleccionó Particular")
+            "Fonasa".lowercase().uppercase() -> println("Seleccionó Fonasa.")
+            "Isapre".lowercase().uppercase() -> println("Seleccionó Isapre.")
+            "Particular".lowercase().uppercase() -> println("Seleccionó Particular.")
         }
-        return sistemaSalud.equals("1") || sistemaSalud.equals("2") || sistemaSalud.equals("3")
+        return sistemaSalud.equals(
+            "Fonasa".lowercase().uppercase()
+        ) || sistemaSalud.equals(
+            "Isapre".lowercase().uppercase()
+        ) || sistemaSalud.equals("Particular".lowercase().uppercase())
     }
-fun validarEdad(edad: Int): Boolean {
-    return edad in 1..115
-}
 
-fun validarCorreo(correo: String): Boolean {
-    return correo.all { it.isLetterOrDigit() } && correo.contains(Regex("^\\S+@\\S+\\.\\S+$"))
-}
+    fun validarEdad(edad: Int): Boolean {
+     return edad in 1..115
+    }
+
+    fun validarCorreo(correo: String): Boolean {
+     return correo.all { it.isLetterOrDigit() } && correo.contains(Regex("^\\S+@\\S+\\.\\S+$"))
+    }
 
 
-fun validarApellido(apellido: String): Boolean {
-    return apellido.all { it.isLetter() }
+    fun validarApellido(apellido: String): Boolean {
+        return apellido.length in 1..20 && apellido.all { it.isLetterOrDigit() }
 
-}
+    }
 
-fun validarNombre(nombre: String): Boolean {
-    return nombre.length in 1..20 && nombre.all { it.isLetter() }
+    fun validarNombre(nombre: String): Boolean {
+      return nombre.length in 1..20 && nombre.all { it.isLetterOrDigit() }
 
-}
+    }
 
