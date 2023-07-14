@@ -53,9 +53,9 @@ fun main() {
         //CORREO
         println("Ingrese correo electrónico: ")
         correo = readln()
-        while (validarCorreo(correo)) {
+        while (!validarCorreo(correo)) {
             println("Correo inválido, ingrese un correo válido.")
-            apellido = readln()
+            correo = readln()
         }
 
         //SISTEMA SALUD
@@ -63,7 +63,7 @@ fun main() {
         println("1.Fonasa")
         println("2.Isapre")
         println("3.Particular")
-        sistemaSalud = readln().lowercase().uppercase()
+        sistemaSalud = readln()
         while (!validarSistema(sistemaSalud)) {
             println("Sistema de salud inválido, ingrese un sistema de salud válido.")
             sistemaSalud = readln()
@@ -89,35 +89,35 @@ fun main() {
         val sistemaSalud: String
     )
 
-    fun validarSistema(sistemaSalud: String): Boolean {
-        when (sistemaSalud) {
-            "Fonasa".lowercase().uppercase() -> println("Seleccionó Fonasa.")
-            "Isapre".lowercase().uppercase() -> println("Seleccionó Isapre.")
-            "Particular".lowercase().uppercase() -> println("Seleccionó Particular.")
-        }
-        return sistemaSalud.equals(
-            "Fonasa".lowercase().uppercase()
-        ) || sistemaSalud.equals(
-            "Isapre".lowercase().uppercase()
-        ) || sistemaSalud.equals("Particular".lowercase().uppercase())
-    }
-
-    fun validarEdad(edad: Int): Boolean {
-     return edad in 1..115
-    }
-
-    fun validarCorreo(correo: String): Boolean {
-     return correo.all { it.isLetterOrDigit() } && correo.contains(Regex("^\\S+@\\S+\\.\\S+$"))
-    }
-
-
-    fun validarApellido(apellido: String): Boolean {
-        return apellido.length in 1..20 && apellido.all { it.isLetterOrDigit() }
+fun validarSistema(sistemaSalud: String): Boolean {
+    if (sistemaSalud.uppercase().lowercase() == "Fonasa" || sistemaSalud.uppercase()
+            .lowercase() == "Isapre" || sistemaSalud.uppercase().lowercase() == "Particular"
+    ) {
+        return false
 
     }
+    return true
+}
 
-    fun validarNombre(nombre: String): Boolean {
-      return nombre.length in 1..20 && nombre.all { it.isLetterOrDigit() }
 
-    }
+fun validarEdad(edad: Int): Boolean {
+    return edad in 1..115
+}
+
+
+fun validarCorreo(correo: String): Boolean {
+    return correo.length in 10..200 && correo.contains(Regex("@"))
+    //Regex("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+}
+
+
+fun validarApellido(apellido: String): Boolean {
+    return apellido.length in 1..20 && apellido.all { it.isLetterOrDigit() }
+
+}
+
+fun validarNombre(nombre: String): Boolean {
+    return nombre.length in 1..20 && nombre.all { it.isLetterOrDigit() }
+
+}
 
