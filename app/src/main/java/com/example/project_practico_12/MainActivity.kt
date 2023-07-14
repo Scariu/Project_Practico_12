@@ -59,7 +59,7 @@ fun main() {
         }
 
         //SISTEMA SALUD
-        println("Seleccione su sistema de salud :")
+        println("Ingrese su sistema de salud (escriba una de las opciones):")
         println("1.Fonasa")
         println("2.Isapre")
         println("3.Particular")
@@ -73,7 +73,7 @@ fun main() {
         var usuario = Usuario(nombre, apellido, edad, correo, sistemaSalud)
         usuarios.add(usuario)
 
-        for (u in usuarios) {
+        for (u in usuarios.sortedBy { it.edad }) {
             println(u)
         }
     }
